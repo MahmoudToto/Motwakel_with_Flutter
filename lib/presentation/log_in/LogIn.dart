@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../widgets/shared_widgets/CustomTextField.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -47,26 +49,15 @@ class LoginScreen extends StatelessWidget {
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                 ),
                 const SizedBox(height: 20),
-                TextField(
-                  controller: phoneController,
-                  decoration: InputDecoration(
-                    labelText: 'رقم الهاتف',
-                    prefixIcon: Icon(Icons.phone),
-                    border: OutlineInputBorder(),
-                  ),
-                  keyboardType: TextInputType.phone,
+                CustomTextField(
+                  controller: phoneController,labelText: 'رقم الهاتف', isPassword: false,
+                  prefixIcon: Icons.phone, keyboardType: TextInputType.phone,
+
                 ),
                 const SizedBox(height: 10),
-                TextField(
-                  controller: passwordController,
-                  decoration: InputDecoration(
-                    labelText: 'كلمة المرور',
-                    prefixIcon: Icon(Icons.lock),
-                    suffixIcon: Icon(Icons.visibility),
-                    border: OutlineInputBorder(),
-                  ),
-                  obscureText: true,
-                ),
+                CustomTextField(
+                  controller: passwordController, labelText: 'كلمة المرور', prefixIcon: Icons.lock,
+                  suffixIcon: Icons.visibility, isPassword: true, ),
                 const SizedBox(height: 10),
                 Align(
                   alignment: Alignment.centerRight,
@@ -95,7 +86,10 @@ class LoginScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 OutlinedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pop(context);
+                    Navigator.pushNamed(context, "/SinUpScreen");
+                  },
                   child: Text('إنشاء حساب جديد'),
                   style: OutlinedButton.styleFrom(
                     minimumSize: Size(double.infinity, 50),
@@ -116,7 +110,7 @@ class LoginScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(Icons.local_phone_outlined, color: Colors.green),
-                          Text('15092', style: TextStyle(fontSize: 16, color: Colors.green),),
+                          Text('15092', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.amber),),
                           Icon(Icons.local_phone_outlined, color: Colors.green),
                         ],
                       ),
