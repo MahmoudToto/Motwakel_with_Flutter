@@ -1,9 +1,8 @@
 // auth_viewmodel.dart
 import 'package:flutter/material.dart';
 import 'package:motwakel/presentation/log_in/LogIn.dart';
-
 import 'core/navigation/app_router.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
