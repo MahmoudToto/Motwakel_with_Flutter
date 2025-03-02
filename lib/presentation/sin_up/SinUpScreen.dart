@@ -1,20 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:motwakel/widgets/shared_widgets/CustomTextField.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: SignUpScreen(),
-    );
-  }
-}
-
 class SignUpScreen extends StatefulWidget {
   @override
   _SignUpScreenState createState() => _SignUpScreenState();

@@ -16,6 +16,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      locale: Locale('ar'),
+      builder: (context, child) {
+        return Directionality(
+          textDirection: TextDirection.rtl,
+          child: child!,
+        );
+      },
       debugShowCheckedModeBanner: false,
       initialRoute: '/HomeScreen',
       onGenerateRoute: AppRouter.generateRoute,
