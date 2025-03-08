@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:motwakel/widgets/shared_widgets/CustomTextField.dart';
+import 'package:motwakel/widgets/shared_widgets/CustomTitileText.dart';
+
 
 class ResetPasswordScreen extends StatelessWidget {
   @override
@@ -14,13 +16,7 @@ class ResetPasswordScreen extends StatelessWidget {
           icon: Icon(Icons.arrow_back_ios, color: Colors.black),
           onPressed: () => Navigator.pop(context),
         ),
-        title: Text(
-          'تغيير كلمة السر',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
-          ),
+        title: CustomTitileText(text: 'تغيير كلمة السر',
         ),
         centerTitle: false,
       ),

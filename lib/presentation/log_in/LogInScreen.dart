@@ -3,7 +3,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../widgets/shared_widgets/CustomTextField.dart';
 
 
-class LoginScreen extends StatelessWidget {
+class LogInScreen extends StatelessWidget {
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
@@ -37,7 +37,6 @@ class LoginScreen extends StatelessWidget {
                 CustomTextField(
                   controller: phoneController,labelText: 'رقم الهاتف', isPassword: false,
                   prefixIcon: Icons.phone, keyboardType: TextInputType.phone,
-
                 ),
                 const SizedBox(height: 10),
                 CustomTextField(

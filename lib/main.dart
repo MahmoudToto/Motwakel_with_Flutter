@@ -1,6 +1,6 @@
 // auth_viewmodel.dart
 import 'package:flutter/material.dart';
-import 'package:motwakel/presentation/log_in/LogIn.dart';
+import 'package:motwakel/presentation/log_in/LogInScreen.dart';
 import 'core/navigation/app_router.dart';
 
 
@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       locale: Locale('ar'),
       builder: (context, child) {
         return Directionality(
@@ -22,10 +23,9 @@ class MyApp extends StatelessWidget {
           child: child!,
         );
       },
-      debugShowCheckedModeBanner: false,
-      initialRoute: '/HomeScreen',
+      initialRoute: '/SignUpScreen',
       onGenerateRoute: AppRouter.generateRoute,
-      home: LoginScreen(),
+      home: LogInScreen(),
     );
   }
 }

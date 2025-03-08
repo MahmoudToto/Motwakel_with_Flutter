@@ -5,6 +5,7 @@ class CustomTextField extends StatelessWidget {
   final TextEditingController? controller;
   final TextInputType keyboardType;
   final IconData? prefixIcon;
+  final Color? prefixIconColor;
   final IconData?  suffixIcon;
   final bool isPassword;
 
@@ -16,6 +17,7 @@ class CustomTextField extends StatelessWidget {
     required this.isPassword,
     this.keyboardType = TextInputType.text,
     this.prefixIcon,
+    this.prefixIconColor,
     this.suffixIcon,
   }) : super(key: key);
 
@@ -29,8 +31,8 @@ class CustomTextField extends StatelessWidget {
       decoration: InputDecoration(
         labelText: labelText,
         hintStyle: TextStyle(color: Colors.black),
-        prefixIcon: prefixIcon != null ? Icon(prefixIcon, color: Colors.black) : null,
-        suffixIcon: suffixIcon != null ? Icon(suffixIcon, color: Colors.black) : null,
+        prefixIcon: prefixIcon != null ? Icon(prefixIcon,color: prefixIconColor ?? Colors.black) : null,
+        suffixIcon: suffixIcon != null ? Icon(suffixIcon,color: prefixIconColor ?? Colors.black) : null,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15), // تعديل الزوايا
           borderSide: BorderSide(color: Colors.black),
