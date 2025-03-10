@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:motwakel/presentation/sin_up/GoogleMapsPadge.dart';
 import 'package:motwakel/presentation/sin_up/OTPVerificationPadge.dart';
+import 'package:motwakel/widgets/shared_widgets/CustomButton.dart';
 import 'package:motwakel/widgets/shared_widgets/CustomTitileText.dart';
 import 'SinUpPadge.dart';
 
@@ -23,6 +24,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
         duration: Duration(milliseconds: 300),
         curve: Curves.easeInOut,
       );
+    }
+    else if(_currentStep == 3){
+      Navigator.pop(context);
+      Navigator.pushNamed(context, "/HomeScreen");
     }
   }
 
@@ -57,23 +62,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: _nextStep,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.green,
-                    padding: EdgeInsets.symmetric(vertical: 16),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  child: Text('التالي', style: TextStyle(fontSize: 18)),
-                ),
-              ),
-            ),
+            CustomButton(text:'التالي', onPressed: ()=> _nextStep())
           ],
         ),
       ),

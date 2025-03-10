@@ -10,6 +10,7 @@ class CustomTextField extends StatelessWidget {
   final bool isPassword;
 
 
+
   const CustomTextField({
     Key? key,
     required this.controller,
@@ -30,6 +31,7 @@ class CustomTextField extends StatelessWidget {
       textAlign: TextAlign.right, // لمحاذاة النص لليمين (العربية)
       decoration: InputDecoration(
         labelText: labelText,
+        labelStyle: TextStyle(fontSize: 20),
         hintStyle: TextStyle(color: Colors.black),
         prefixIcon: prefixIcon != null ? Icon(prefixIcon,color: prefixIconColor ?? Colors.black) : null,
         suffixIcon: suffixIcon != null ? Icon(suffixIcon,color: prefixIconColor ?? Colors.black) : null,
@@ -39,7 +41,7 @@ class CustomTextField extends StatelessWidget {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
-          borderSide: BorderSide(color: Colors.black), // لون عند التركيز
+          borderSide: BorderSide(color: Colors.green), // لون عند التركيز
         ),
       ),
     );

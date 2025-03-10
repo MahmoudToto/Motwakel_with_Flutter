@@ -21,21 +21,11 @@ class BottomNavBar extends StatelessWidget {
           fontWeight: FontWeight.normal), 
 
       items: const [
-        BottomNavigationBarItem(
-            icon: Icon(Icons.mobile_friendly),
-            label: "الرئيسية"),
-        BottomNavigationBarItem(
-            icon: Icon(Icons.mobile_friendly),
-            label: "الشحنات"),
-        BottomNavigationBarItem(
-            icon:  Icon(Icons.mobile_friendly),
-            label: "المرتجعات"),
-        BottomNavigationBarItem(
-            icon:  Icon(Icons.mobile_friendly),
-            label: "المهمات"),
-        BottomNavigationBarItem(
-            icon:  Icon(Icons.mobile_friendly),
-            label: "المهمات"),
+        BottomNavigationBarItem(icon: Icon(Icons.home), label: "الرئيسية"),
+        BottomNavigationBarItem(icon: Icon(Icons.grid_view), label: "الأقسام"),
+        BottomNavigationBarItem(icon: Icon(Icons.local_offer), label: "العروض"),
+        BottomNavigationBarItem(icon: Icon(Icons.favorite), label: "المفضلة"),
+        BottomNavigationBarItem(icon: Icon(Icons.menu), label: "المزيد"),
      /*   BottomNavigationBarItem(
             icon: ImageIcon(AssetImage('assets/images/accounts.png')),
             label: "الحسابات"),*/

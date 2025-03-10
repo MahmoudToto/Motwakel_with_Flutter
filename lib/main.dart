@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:motwakel/presentation/log_in/LogInScreen.dart';
 import 'core/navigation/app_router.dart';
 
-
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  child: MyApp();
+void main() {
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -23,7 +21,7 @@ class MyApp extends StatelessWidget {
           child: child!,
         );
       },
-      initialRoute: '/SignUpScreen',
+      initialRoute: '/LogInScreen',
       onGenerateRoute: AppRouter.generateRoute,
       home: LogInScreen(),
     );

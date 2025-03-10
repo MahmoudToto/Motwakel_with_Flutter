@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../widgets/shared_widgets/CustomTextField.dart';
 
-
 class LogInScreen extends StatelessWidget {
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -59,10 +58,8 @@ class LogInScreen extends StatelessWidget {
                 const SizedBox(height: 10),
                 ElevatedButton(
                   onPressed: () {
-                /*    authViewModel.login(
-                      phoneController.text.trim(),
-                      passwordController.text.trim(),
-                    );*/
+                    Navigator.pop(context);
+                    Navigator.popAndPushNamed(context, "/HomeScreen");
                   },
                   child: Text('تسجيل الدخول'),
                   style: ElevatedButton.styleFrom(
@@ -75,7 +72,7 @@ class LogInScreen extends StatelessWidget {
                 OutlinedButton(
                   onPressed: () {
                     Navigator.pop(context);
-                    Navigator.pushNamed(context, "/SinUpScreen");
+                    Navigator.pushNamed(context, "/SignUpScreen");
                   },
                   child: Text('إنشاء حساب جديد'),
                   style: OutlinedButton.styleFrom(
