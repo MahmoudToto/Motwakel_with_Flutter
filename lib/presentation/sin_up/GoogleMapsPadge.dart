@@ -9,7 +9,8 @@ class GoogleMapsPadge extends StatefulWidget {
 class _GoogleMapsPadgeState extends State<GoogleMapsPadge> {
   late GoogleMapController mapController;
 
-  final LatLng _initialPosition = const LatLng(30.0444, 31.2357); // Cairo, Egypt
+  final LatLng _initialPosition =
+      const LatLng(30.0444, 31.2357); // Cairo, Egypt
 
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;

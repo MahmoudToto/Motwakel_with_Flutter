@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:motwakel/widgets/shared_widgets/CustomTitileText.dart';
 
-
 class OTPVerificationPadge extends StatefulWidget {
   @override
   _OTPVerificationPadgeState createState() => _OTPVerificationPadgeState();
@@ -10,7 +9,7 @@ class OTPVerificationPadge extends StatefulWidget {
 
 class _OTPVerificationPadgeState extends State<OTPVerificationPadge> {
   final List<TextEditingController> _controllers =
-  List.generate(6, (index) => TextEditingController());
+      List.generate(6, (index) => TextEditingController());
   final List<FocusNode> _focusNodes = List.generate(6, (index) => FocusNode());
 
   void _nextField(String value, int index) {
@@ -29,7 +28,8 @@ class _OTPVerificationPadgeState extends State<OTPVerificationPadge> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CustomTitileText( text:'كود التحقق',
+            CustomTitileText(
+              text: 'كود التحقق',
             ),
             SizedBox(height: 8),
             Text(

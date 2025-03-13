@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:motwakel/core/utils/colors.dart';
 
-import '../core/utils/colors.dart';
 
 
 class AppTheme {

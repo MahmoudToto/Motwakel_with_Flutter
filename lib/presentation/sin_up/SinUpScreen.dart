@@ -24,8 +24,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         duration: Duration(milliseconds: 300),
         curve: Curves.easeInOut,
       );
-    }
-    else if(_currentStep == 3){
+    } else if (_currentStep == 3) {
       Navigator.pop(context);
       Navigator.pushNamed(context, "/HomeScreen");
     }
@@ -62,7 +61,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ],
               ),
             ),
-            CustomButton(text:'التالي', onPressed: ()=> _nextStep())
+            CustomButton(text: 'التالي', onPressed: () => _nextStep())
           ],
         ),
       ),
@@ -76,11 +75,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
         return Row(
           children: [
             CircleAvatar(
-              backgroundColor: _currentStep >= index ? Colors.green : Colors.grey.shade300,
+              backgroundColor:
+                  _currentStep >= index ? Colors.green : Colors.grey.shade300,
               radius: 12,
-              child: _currentStep > index ? Icon(Icons.check, size: 16, color: Colors.white) : Text('${index + 1}', style: TextStyle(color: Colors.black)),
+              child: _currentStep > index
+                  ? Icon(Icons.check, size: 16, color: Colors.white)
+                  : Text('${index + 1}', style: TextStyle(color: Colors.black)),
             ),
-            if (index < 2) Container(width: 20, height: 2, color: _currentStep > index ? Colors.green : Colors.grey.shade300),
+            if (index < 2)
+              Container(
+                  width: 20,
+                  height: 2,
+                  color: _currentStep > index
+                      ? Colors.green
+                      : Colors.grey.shade300),
           ],
         );
       }),

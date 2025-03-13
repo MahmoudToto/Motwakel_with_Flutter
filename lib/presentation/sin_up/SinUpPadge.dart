@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:motwakel/widgets/shared_widgets/CustomTextField.dart';
 import 'package:motwakel/widgets/shared_widgets/CustomTitileText.dart';
 
-
 class SinUpPadge extends StatefulWidget {
   @override
   _SinUpPadgeState createState() => _SinUpPadgeState();
 }
 
-class _SinUpPadgeState extends State<SinUpPadge> with SingleTickerProviderStateMixin {
+class _SinUpPadgeState extends State<SinUpPadge>
+    with SingleTickerProviderStateMixin {
   // int _currentStep = 1;
   late TabController _tabController;
   String? selectedCategory;
@@ -45,6 +45,7 @@ class _SinUpPadgeState extends State<SinUpPadge> with SingleTickerProviderStateM
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
   }
+
   void _showCategoryPicker() {
     showModalBottomSheet(
       context: context,
@@ -129,22 +130,49 @@ class _SinUpPadgeState extends State<SinUpPadge> with SingleTickerProviderStateM
       ),
     );
   }
+
   Widget _buildFormStore() {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
         children: [
-          CustomTextField(labelText: 'اسم المستخدم', isPassword: false, prefixIcon: Icons.person, controller: null),
+          CustomTextField(
+              labelText: 'اسم المستخدم',
+              isPassword: false,
+              prefixIcon: Icons.person,
+              controller: null),
           SizedBox(height: 20),
-          CustomTextField(labelText: 'اسم المحل', isPassword: false, prefixIcon: Icons.store, controller: null),
+          CustomTextField(
+              labelText: 'اسم المحل',
+              isPassword: false,
+              prefixIcon: Icons.store,
+              controller: null),
           SizedBox(height: 20),
-          CustomTextField(labelText: 'رقم الهاتف الأساسي', isPassword: false, prefixIcon: Icons.phone, controller: null),
+          CustomTextField(
+              labelText: 'رقم الهاتف الأساسي',
+              isPassword: false,
+              prefixIcon: Icons.phone,
+              controller: null),
           SizedBox(height: 20),
-          CustomTextField(labelText: 'رقم الهاتف (اختياري)', isPassword: false, prefixIcon: Icons.phone, controller: null),
+          CustomTextField(
+              labelText: 'رقم الهاتف (اختياري)',
+              isPassword: false,
+              prefixIcon: Icons.phone,
+              controller: null),
           SizedBox(height: 20),
-          CustomTextField(labelText: 'كلمة المرور', isPassword: true, prefixIcon: Icons.lock, suffixIcon: Icons.visibility, controller: null),
+          CustomTextField(
+              labelText: 'كلمة المرور',
+              isPassword: true,
+              prefixIcon: Icons.lock,
+              suffixIcon: Icons.visibility,
+              controller: null),
           SizedBox(height: 20),
-          CustomTextField(labelText: 'تأكيد كلمة المرور', isPassword: true, prefixIcon: Icons.lock, suffixIcon: Icons.visibility, controller: null),
+          CustomTextField(
+              labelText: 'تأكيد كلمة المرور',
+              isPassword: true,
+              prefixIcon: Icons.lock,
+              suffixIcon: Icons.visibility,
+              controller: null),
           SizedBox(height: 20),
           GestureDetector(
             onTap: _showCategoryPicker,
@@ -167,20 +195,6 @@ class _SinUpPadgeState extends State<SinUpPadge> with SingleTickerProviderStateM
             ),
           ),
           SizedBox(height: 20),
-         /* SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.green,
-                padding: EdgeInsets.symmetric(vertical: 16),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              ),
-              child: Text('التالي', style: TextStyle(fontSize: 18)),
-            ),
-          ),*/
         ],
       ),
     );
@@ -191,48 +205,39 @@ class _SinUpPadgeState extends State<SinUpPadge> with SingleTickerProviderStateM
       padding: const EdgeInsets.all(16.0),
       child: Column(
         children: [
-          CustomTextField(labelText: 'اسم المستخدم', isPassword: false, prefixIcon: Icons.person, controller: null),
+          CustomTextField(
+              labelText: 'اسم المستخدم',
+              isPassword: false,
+              prefixIcon: Icons.person,
+              controller: null),
           SizedBox(height: 20),
-          CustomTextField(labelText: 'اسم المحل', isPassword: false, prefixIcon: Icons.store, controller: null),
+          CustomTextField(
+              labelText: 'اسم المحل',
+              isPassword: false,
+              prefixIcon: Icons.store,
+              controller: null),
           SizedBox(height: 20),
-          CustomTextField(labelText: 'رقم الهاتف الأساسي', isPassword: false, prefixIcon: Icons.phone, controller: null),
+          CustomTextField(
+              labelText: 'رقم الهاتف الأساسي',
+              isPassword: false,
+              prefixIcon: Icons.phone,
+              controller: null),
           SizedBox(height: 16),
-          CustomTextField(labelText: 'رقم الهاتف (اختياري)', isPassword: false, prefixIcon: Icons.phone, controller: null),
+          CustomTextField(
+              labelText: 'رقم الهاتف (اختياري)',
+              isPassword: false,
+              prefixIcon: Icons.phone,
+              controller: null),
           SizedBox(height: 20),
-          CustomTextField(labelText: 'كلمة المرور', isPassword: true, prefixIcon: Icons.lock, suffixIcon: Icons.visibility, controller: null),
+          CustomTextField(
+              labelText: 'كلمة المرور',
+              isPassword: true,
+              prefixIcon: Icons.lock,
+              suffixIcon: Icons.visibility,
+              controller: null),
           SizedBox(height: 20),
-         /* SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(vertical: 16),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              ),
-              child: Text('التالي', style: TextStyle(fontSize: 18)),
-            ),
-          ),*/
         ],
       ),
     );
   }
-/*  Widget _buildStepper() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: List.generate(4, (index) {
-        return Row(
-          children: [
-            CircleAvatar(
-              backgroundColor: _currentStep >= index + 1 ? Colors.green : Colors.grey.shade300,
-              radius: 12,
-              child: _currentStep >= index + 1 ? Icon(Icons.check, size: 16, color: Colors.white) : Text('${index + 1}', style: TextStyle(color: Colors.black)),
-            ),
-            if (index < 3) Container(width: 20, height: 2, color: _currentStep > index + 1 ? Colors.green : Colors.grey.shade300),
-          ],
-        );
-      }),
-    );
-  }*/
 }
