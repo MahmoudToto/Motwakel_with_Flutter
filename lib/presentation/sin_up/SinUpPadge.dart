@@ -1,17 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:motwakel/widgets/shared_widgets/CustomTextField.dart';
-import 'package:motwakel/widgets/shared_widgets/CustomTitileText.dart';
+
+import '../otp/OTPScreen.dart'; // Import the new AuthCubit
+
+class SinUpCubit extends Cubit<String?> {
+  SinUpCubit() : super(null);
+
+  void selectCategory(String category) {
+    emit(category);
+  }
+
+  void sendOTP(String phoneNumber) {
+    // Add your OTP sending logic here
+    print('OTP sent to $phoneNumber');
+  }
+}
 
 class SinUpPadge extends StatefulWidget {
+  final Function(String) onAccountTypeSelected;
+  final Function(String) onSendOTP;
+  SinUpPadge({
+    required this.onAccountTypeSelected,
+    required this.onSendOTP,
+  });
+
   @override
   _SinUpPadgeState createState() => _SinUpPadgeState();
 }
 
 class _SinUpPadgeState extends State<SinUpPadge>
     with SingleTickerProviderStateMixin {
-  // int _currentStep = 1;
   late TabController _tabController;
-  String? selectedCategory;
 
   List<String> categories = [
     "ماركت أو لبان",
@@ -46,7 +66,7 @@ class _SinUpPadgeState extends State<SinUpPadge>
     _tabController = TabController(length: 2, vsync: this);
   }
 
-  void _showCategoryPicker() {
+  void _showCategoryPicker(BuildContext context) {
     showModalBottomSheet(
       context: context,
       shape: RoundedRectangleBorder(
@@ -72,9 +92,9 @@ class _SinUpPadgeState extends State<SinUpPadge>
                     return ListTile(
                       title: Text(categories[index]),
                       onTap: () {
-                        setState(() {
-                          selectedCategory = categories[index];
-                        });
+                        context
+                            .read<SinUpCubit>()
+                            .selectCategory(categories[index]);
                         Navigator.pop(context);
                       },
                     );
@@ -88,44 +108,98 @@ class _SinUpPadgeState extends State<SinUpPadge>
     );
   }
 
+  void _onNextPressed(BuildContext context) {
+    final selectedCategory = context.read<SinUpCubit>().state;
+    if (_tabController.index == 0) {
+      // Store form
+      if (selectedCategory != null) {
+        widget.onAccountTypeSelected(selectedCategory);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => OTPScreen(
+              phoneNumber: '01117561394', // Replace with actual phone number
+              onOTPVerified: (isVerified) {
+                if (isVerified) {
+                  Navigator.pushReplacementNamed(context, '/home');
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('الكود غير صحيح. حاول مرة أخرى.')),
+                  );
+                }
+              },
+            ),
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('يرجى اختيار نوع الحساب.')),
+        );
+      }
+    } else {
+      // Customer form
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => OTPScreen(
+            phoneNumber: '01117561394', // Replace with actual phone number
+            onOTPVerified: (isVerified) {
+              if (isVerified) {
+                Navigator.pushReplacementNamed(context, '/home');
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('الكود غير صحيح. حاول مرة أخرى.')),
+                );
+              }
+            },
+          ),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-            ),
-            TabBar(
-              controller: _tabController,
-              labelColor: Colors.black,
-              unselectedLabelColor: Colors.grey,
-              indicator: BoxDecoration(
-                color: Colors.amber,
-                borderRadius: BorderRadius.circular(8),
+    return BlocProvider(
+      create: (_) => SinUpCubit(),
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: SafeArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(16.0),
               ),
-              tabs: [
-                Tab(text: 'متجر'),
-                Tab(text: 'مستهلك منزلي'),
-              ],
-            ),
-            SizedBox(height: 16),
-            // _buildStepper(),
-            Expanded(
-              child: TabBarView(
+              TabBar(
                 controller: _tabController,
-                children: [
-                  SingleChildScrollView(
-                    child: _buildFormStore(),
-                  ),
-                  _buildFormCustomer(),
+                labelColor: Colors.black,
+                unselectedLabelColor: Colors.grey,
+                indicator: BoxDecoration(
+                  color: Colors.amber,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                tabs: [
+                  Tab(text: 'متجر'),
+                  Tab(text: 'مستهلك منزلي'),
                 ],
               ),
-            ),
-          ],
+              SizedBox(height: 16),
+              Expanded(
+                child: TabBarView(
+                  controller: _tabController,
+                  children: [
+                    SingleChildScrollView(
+                      child: _buildFormStore(),
+                    ),
+                    SingleChildScrollView(
+                      child: _buildFormCustomer(),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -175,23 +249,27 @@ class _SinUpPadgeState extends State<SinUpPadge>
               controller: null),
           SizedBox(height: 20),
           GestureDetector(
-            onTap: _showCategoryPicker,
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    selectedCategory ?? "اختر فئة العمل",
-                    style: TextStyle(color: Colors.grey.shade700),
+            onTap: () => _showCategoryPicker(context),
+            child: BlocBuilder<SinUpCubit, String?>(
+              builder: (context, selectedCategory) {
+                return Container(
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey),
+                    borderRadius: BorderRadius.circular(8),
                   ),
-                  Icon(Icons.arrow_drop_down, color: Colors.green),
-                ],
-              ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        selectedCategory ?? "اختر فئة العمل",
+                        style: TextStyle(color: Colors.grey.shade700),
+                      ),
+                      Icon(Icons.arrow_drop_down, color: Colors.green),
+                    ],
+                  ),
+                );
+              },
             ),
           ),
           SizedBox(height: 20),
@@ -236,6 +314,7 @@ class _SinUpPadgeState extends State<SinUpPadge>
               suffixIcon: Icons.visibility,
               controller: null),
           SizedBox(height: 20),
+          // Removed the "تحقق من OTP" button
         ],
       ),
     );

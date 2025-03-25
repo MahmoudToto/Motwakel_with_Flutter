@@ -3,7 +3,7 @@ import 'package:motwakel/presentation/home/HomeScreen.dart';
 
 import '../../presentation/details/DetailsScreen.dart';
 import '../../presentation/log_in/LogInScreen.dart';
-import '../../presentation/sin_up/ResetPassword.dart';
+import '../../presentation/resetPassword/ResetPassword.dart';
 import '../../presentation/sin_up/SinUpScreen.dart';
 
 

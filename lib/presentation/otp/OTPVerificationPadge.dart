@@ -3,6 +3,11 @@ import 'package:flutter/services.dart';
 import 'package:motwakel/widgets/shared_widgets/CustomTitileText.dart';
 
 class OTPVerificationPadge extends StatefulWidget {
+  final String phoneNumber;
+  final Function(String) onVerifyOTP;
+
+  OTPVerificationPadge({required this.phoneNumber, required this.onVerifyOTP});
+
   @override
   _OTPVerificationPadgeState createState() => _OTPVerificationPadgeState();
 }
@@ -16,6 +21,13 @@ class _OTPVerificationPadgeState extends State<OTPVerificationPadge> {
     if (value.length == 1 && index < 5) {
       FocusScope.of(context).requestFocus(_focusNodes[index + 1]);
     }
+  }
+
+  void _resendOTP() {
+    // Resend OTP logic
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('OTP has been resent.')),
+    );
   }
 
   @override
@@ -39,7 +51,7 @@ class _OTPVerificationPadgeState extends State<OTPVerificationPadge> {
             ),
             SizedBox(height: 8),
             Text(
-              "01117561394",
+              widget.phoneNumber,
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 20),
@@ -68,15 +80,13 @@ class _OTPVerificationPadgeState extends State<OTPVerificationPadge> {
             ),
             SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.amber,
-                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 12),
-              ),
-              child: Text(
-                "إعادة إرسال الكود",
-                style: TextStyle(fontSize: 16, color: Colors.black),
-              ),
+              onPressed: () =>
+                  widget.onVerifyOTP(_controllers.map((c) => c.text).join()),
+              child: Text('تأكيد'),
+            ),
+            ElevatedButton(
+              onPressed: _resendOTP,
+              child: Text('إعادة إرسال الكود'),
             ),
           ],
         ),

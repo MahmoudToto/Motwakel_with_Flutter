@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "79121427877",
+    "project_id": "motwakel-ae8fd",
+    "storage_bucket": "motwakel-ae8fd.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:79121427877:android:391fc26782166b50d5cc4c",
+        "android_client_info": {
+          "package_name": "com.example.motwakel"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWnd7diPPMp5Hk5ftGkPyzXKf9U9jKAfw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

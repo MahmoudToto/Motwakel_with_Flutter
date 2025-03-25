@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:motwakel/presentation/sin_up/GoogleMapsPadge.dart';
-import 'package:motwakel/presentation/sin_up/OTPVerificationPadge.dart';
+import 'package:motwakel/presentation/maps/GoogleMapsPadge.dart';
+import 'package:motwakel/presentation/otp/OTPVerificationPadge.dart';
 import 'package:motwakel/widgets/shared_widgets/CustomButton.dart';
 import 'package:motwakel/widgets/shared_widgets/CustomTitileText.dart';
 import 'SinUpPadge.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SignUpScreen extends StatefulWidget {
   @override
@@ -13,6 +14,61 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   int _currentStep = 0;
   final PageController _pageController = PageController();
+  String? _verificationId;
+  String?
+      _selectedAccountType; // Store selected account type (Store or Consumer)
+
+  void _sendOTP(String phoneNumber) async {
+    await FirebaseAuth.instance.verifyPhoneNumber(
+      phoneNumber: phoneNumber,
+      verificationCompleted: (PhoneAuthCredential credential) async {
+        await FirebaseAuth.instance.signInWithCredential(credential);
+      },
+      verificationFailed: (FirebaseAuthException e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Verification failed: ${e.message}')),
+        );
+      },
+      codeSent: (String verificationId, int? resendToken) {
+        setState(() {
+          _verificationId = verificationId;
+        });
+      },
+      codeAutoRetrievalTimeout: (String verificationId) {
+        setState(() {
+          _verificationId = verificationId;
+        });
+      },
+    );
+  }
+
+  void _verifyOTP(String otp) async {
+    try {
+      PhoneAuthCredential credential = PhoneAuthProvider.credential(
+        verificationId: _verificationId!,
+        smsCode: otp,
+      );
+      await FirebaseAuth.instance.signInWithCredential(credential);
+      _registerAccount();
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Invalid OTP. Please try again.')),
+      );
+    }
+  }
+
+  void _registerAccount() {
+    // Collect data based on the selected account type
+    Map<String, dynamic> accountData = {
+      'accountType': _selectedAccountType,
+      // Add other fields based on the selected account type
+    };
+
+    // Save accountData to Firebase Firestore or Realtime Database
+    // Example: FirebaseFirestore.instance.collection('users').add(accountData);
+
+    Navigator.pushNamed(context, "/HomeScreen");
+  }
 
   void _nextStep() {
     if (_currentStep < 3) {
@@ -55,13 +111,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 controller: _pageController,
                 physics: NeverScrollableScrollPhysics(),
                 children: [
-                  _buildFormStore(),
-                  _buildFormCustomer(),
+                  buildFormSinUp(),
+                  buildFormOTPVerification(),
                   _GoogleMapsPadge(),
                 ],
               ),
             ),
-            CustomButton(text: 'التالي', onPressed: () => _nextStep())
+            CustomButton(text: 'التالي',
+                onPressed: () => _nextStep(),
+                /*onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => OTPVerificationPadge(
+                        phoneNumber:
+                        '01117561394', // Replace with actual phone number
+                        onVerifyOTP: _verifyOTP,
+                      ),
+                    ),
+                  );
+                },*/)
           ],
         ),
       ),
@@ -95,12 +164,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
-  Widget _buildFormStore() {
-    return SinUpPadge();
+  Widget buildFormSinUp() {
+    return SinUpPadge(
+      onAccountTypeSelected: (type) {
+        setState(() {
+          _selectedAccountType = type;
+        });
+      },
+      onSendOTP: _sendOTP,
+    );
   }
 
-  Widget _buildFormCustomer() {
-    return OTPVerificationPadge();
+  Widget buildFormOTPVerification() {
+    return OTPVerificationPadge(
+      phoneNumber: '',
+      onVerifyOTP: _verifyOTP,
+    );
   }
 
   Widget _GoogleMapsPadge() {
